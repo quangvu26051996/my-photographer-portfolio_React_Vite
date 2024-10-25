@@ -9,7 +9,7 @@ import { CursorContext } from '../context/CursorContext';
 
 const About = () => {
   const { mouseEnterHandler, mouseLeaverHandler } = useContext(CursorContext);
-  
+ 
   return (
     <motion.section
       initial={{ opacity: 0, y: '100%' }}
