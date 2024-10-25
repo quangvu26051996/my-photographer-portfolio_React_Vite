@@ -1,10 +1,17 @@
 // import icon
 import { FaTiktok } from 'react-icons/fa';
 import { ImFacebook, ImInstagram, ImPinterest } from 'react-icons/im';
+import { CursorContext } from '../context/CursorContext';
+import { useContext } from 'react';
 
 const Socials = () => {
+  const { mouseEnterHandler, mouseLeaverHandler } = useContext(CursorContext);
+
   return (
-    <div className='hidden xl:flex ml-24'>
+    <div
+      onMouseEnter={mouseEnterHandler}
+      onMouseLeave={mouseLeaverHandler}
+      className='hidden xl:flex ml-24'>
       <ul className='flex gap-x-4'>
         <li>
           <a href='https://www.facebook.com/DanhQuangVu/' target='_blank' rel="noreferrer">

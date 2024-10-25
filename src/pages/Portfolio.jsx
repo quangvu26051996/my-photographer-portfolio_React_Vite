@@ -7,8 +7,12 @@ import Image4 from '../img/portfolio/VuFoto4.png';
 import { motion } from 'framer-motion';
 import { transition } from '../transitions/transitionsForPage';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CursorContext } from '../context/CursorContext';
 
 const Portfolio = () => {
+  const { mouseEnterHandler, mouseLeaverHandler } = useContext(CursorContext);
+
   return (
     <motion.section
       initial={{ opacity: 0, y: '100%' }}
@@ -26,6 +30,8 @@ const Portfolio = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-80%' }}
             transition={transition}
+            onMouseEnter={mouseEnterHandler}
+            onMouseLeave={mouseLeaverHandler}
             className='flex flex-col lg:items-start'>
             <h1 className='h1'>Portfolio</h1>
             <p className='mb-12 max-w-sm'>

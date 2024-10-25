@@ -3,8 +3,12 @@ import contactImage from '../img/contact/Contact1.png';
 //import motion
 import { motion } from 'framer-motion';
 import { transition } from '../transitions/transitionsForPage';
+import { CursorContext } from '../context/CursorContext';
+import { useContext } from 'react';
 
 const Contact = () => {
+  const { mouseEnterHandler, mouseLeaverHandler } = useContext(CursorContext);
+
   return (
     <motion.section
       initial={{ opacity: 0, y: '100%' }}
@@ -24,7 +28,10 @@ const Contact = () => {
             transition={transition}
             className='hidden lg:flex bg-[#eef7f9] absolute bottom-0 left-0 right-0 top-96 -z-10'>
           </motion.div>
-          <div className='lg:flex-1 lg:pt-32 px-4'>
+          <div
+            onMouseEnter={mouseEnterHandler}
+            onMouseLeave={mouseLeaverHandler}
+            className='lg:flex-1 lg:pt-32 px-4'>
             <h1 className='h1'>Contact me</h1>
             <p>I would love to get suggestion from you.</p>
             {/* form */}

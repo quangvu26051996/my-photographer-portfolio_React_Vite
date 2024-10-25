@@ -4,8 +4,11 @@ import ManImage from '../img/home/biaVu.png';
 import { motion } from 'framer-motion';
 import { transition } from '../transitions/transitionsForPage';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CursorContext } from '../context/CursorContext';
 
 const Home = () => {
+  const { mouseEnterHandler, mouseLeaverHandler } = useContext(CursorContext);
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -22,6 +25,8 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-50%' }}
             transition={transition}
+            onMouseEnter={mouseEnterHandler}
+            onMouseLeave={mouseLeaverHandler}
             className='w-full pt-36 pd-14 lg:pt-0 lg:pb-0 lg:w-auto z-10 lg:absolute flex flex-col
           justify-center items-center lg:items-start'>
             <h1 className='h1'>
