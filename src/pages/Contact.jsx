@@ -4,10 +4,36 @@ import contactImage from '../img/contact/Contact1.png';
 import { motion } from 'framer-motion';
 import { transition } from '../transitions/transitionsForPage';
 import { CursorContext } from '../context/CursorContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 const Contact = () => {
+  // Add motion
   const { mouseEnterHandler, mouseLeaverHandler } = useContext(CursorContext);
+
+  // Send customer information
+  const [result, setResult] = useState("");
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target);
+    formData.append("access_key", "7de5c645-fc0b-4ad9-ab04-aa66ddd06749");
+
+    console.log(formData);
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      setResult(`Your information has been sent to me. Thank you for your attention.`);
+      event.target.reset();
+    } else {
+      console.log("Error", data);
+      setResult(data.message);
+    }
+  };
 
   return (
     <motion.section
@@ -35,25 +61,36 @@ const Contact = () => {
             <h1 className='h1'>Contact me</h1>
             <p>I would love to get suggestion from you.</p>
             {/* form */}
-            <form className='flex flex-col gap-y-4'>
+            <form
+              onSubmit={onSubmit}
+              className='flex flex-col gap-y-4'>
               <div className='flex gap-x-10'>
                 <input
+                  name='name'
                   className='outline-none border-b border-b-primary h-[60px] bg-transparent
                 font-secondary w-full pl-3 placeholder:text-[#757879]'
                   type='text'
-                  placeholder='Your Name' />
+                  placeholder='Your Name'
+                  required />
                 <input
+                  name='email'
                   className='outline-none border-b border-b-primary h-[60px] bg-transparent
                 font-secondary w-full pl-3 placeholder:text-[#757879]'
                   type='text'
-                  placeholder='Your email address' />
+                  placeholder='Your email address'
+                  required />
               </div>
               <input
+                name='message'
                 className='outline-none border-b border-b-primary h-[60px] bg-transparent
                 font-secondary w-full pl-3 placeholder:text-[#757879]'
                 type='text'
-                placeholder='Your message' />
-              <button className='btn mb-[30px] mx-auto lg:mx-0 self-start'>Send it</button>
+                placeholder='Your message'
+                required />
+              <button
+                type='submit'
+                className='btn mb-[30px] mx-auto lg:mx-0 self-start'>Send it</button>
+              <span>{result}</span>
             </form>
           </div>
           {/* Images */}
